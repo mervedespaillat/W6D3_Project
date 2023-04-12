@@ -5,28 +5,32 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(user_params)
+        @user = User.new(user_params)
         #Is it necessary to do equivalent of @chirp.author? We did not do here, it was fine.
-        if user.save
-            render json: user
+        if @user.save
+            redirect_to user_url(@user)
+            # render json: @user
             #Q: How does this work Ruby wise, passing in @instance to the _url shortcut?
             #e.g. redirect_to chirp_url(@chirp)
         else
-            render json: user.errors.full_messages, status: :unprocessable_entity
+            render json: @user.errors.full_messages, status: :unprocessable_entity
         end
         
     end
 
     def show
-        user = User.find(params[:id])
-        render json: user
+        @user = User.find(params[:id])
+        render json: @user
     end
     
     def update
-        user = User.update(user_params)
-        render json: user
+        @user = User.find(params[:id])
+        if @user.update(user_params)
+            redirect_to user_url(@user)
+        else
+             render json: @user.errors.full_messages, status: :unprocessable_entity
     end
-
+     #stopping point
     def destroy
         @user = User.find(params[:id])
         @user.destroy
