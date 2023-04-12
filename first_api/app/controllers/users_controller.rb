@@ -4,4 +4,11 @@ class UsersController < ApplicationController
         render plain: "Nothing!!!"
     end
 
+    def create
+        render json: params
+    end
+
+    def show
+        render json: params
+    end
 end
