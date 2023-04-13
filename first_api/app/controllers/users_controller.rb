@@ -1,3 +1,4 @@
+require "byebug"
 class UsersController < ApplicationController
 
     def index
@@ -5,6 +6,7 @@ class UsersController < ApplicationController
     end
 
     def create
+        debugger
         @user = User.new(user_params)
         #Is it necessary to do equivalent of @chirp.author? We did not do here, it was fine.
         if @user.save
@@ -29,11 +31,13 @@ class UsersController < ApplicationController
             redirect_to user_url(@user)
         else
              render json: @user.errors.full_messages, status: :unprocessable_entity
+        end
     end
      #stopping point
     def destroy
         @user = User.find(params[:id])
         @user.destroy
+        redirect_to users_url
     end
 
     private
