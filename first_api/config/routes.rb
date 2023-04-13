@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :users, only: [:index, :create, :destroy, :show, :update]
-  resources :artworks, only: [:index, :create, :destroy, :show, :update]
+  resources :users, only: [:index, :create, :destroy, :show, :update] do
+    resources :artworks, only: [:index]
+  end
+
+
+  resources :artworks, only: [:create, :destroy, :show, :update]
   resources :artwork_shares, only: [:create, :destroy]
   
   # Defines the root path route ("/")

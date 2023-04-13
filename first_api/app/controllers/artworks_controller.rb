@@ -1,6 +1,13 @@
+require 'byebug'
+
 class ArtworksController < ApplicationController
 	def index
-		render json: Artwork.all
+		# render json: Artwork.all
+		# debugger
+		render json: Artwork.artworks_for_user_id(params[:user_id])
+		#Why does http://localhost:3000/users/2a/artworks work, but 
+		# http://localhost:3000/users/22aa/artworks not work?
+		# How does it know to truncate just one 'a'?
 	end
 
 	def create
@@ -15,7 +22,7 @@ class ArtworksController < ApplicationController
 	end
 
 	def show
-			@artwork = Artwork.find(params[:id])
+			@artwork = Artwork.find(params[:user_id])
 			render json: @artwork
 	end
 
