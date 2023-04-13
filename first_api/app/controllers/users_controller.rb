@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     end
 
     def create
-        debugger
+        # debugger
         @user = User.new(user_params)
         #Is it necessary to do equivalent of @chirp.author? We did not do here, it was fine.
         if @user.save
@@ -33,11 +33,12 @@ class UsersController < ApplicationController
              render json: @user.errors.full_messages, status: :unprocessable_entity
         end
     end
-     #stopping point
+     
     def destroy
         @user = User.find(params[:id])
         @user.destroy
         redirect_to users_url
+        # render json: @user
     end
 
     private
